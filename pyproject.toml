@@ -1,0 +1,10 @@
+[project]
+name = "llmchess"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=1.4.9",
+    "langchain-ollama>=1.1.0",
+    "langgraph>=1.2.20",
+    "python-chess>=1.999",
+]

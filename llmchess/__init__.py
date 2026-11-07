@@ -1,0 +1,1 @@
+"""LLM chess application package."""
