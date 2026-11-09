@@ -19,6 +19,14 @@ from .position import (
     build_position_context,
     observe_position,
 )
+from .provider import (
+    LLMProvider,
+    ModelInvocationError,
+    ModelProviderError,
+    ModelResponseError,
+    OllamaConfig,
+    OllamaProvider,
+)
 
 __all__ = [
     "BoardState",
@@ -36,4 +44,10 @@ __all__ = [
     "analyze_position",
     "build_position_context",
     "observe_position",
+    "LLMProvider",
+    "ModelInvocationError",
+    "ModelProviderError",
+    "ModelResponseError",
+    "OllamaConfig",
+    "OllamaProvider",
 ]
