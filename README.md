@@ -51,6 +51,31 @@ undefended pieces, and legal checks and captures. `build_position_context(game)`
 combines these results. These facts describe the position; they are not a
 chess-engine evaluation.
 
+## Ollama provider
+
+The Ollama provider can generate raw text from a prompt; it is not yet connected
+to the game loop. Install and start [Ollama](https://ollama.com/), then download
+the default model:
+
+```bash
+ollama pull gemma4:e2b
+```
+
+With the Ollama service running, the provider can be used independently:
+
+```python
+from llmchess import OllamaProvider
+
+provider = OllamaProvider()
+response = provider.generate("Return one legal chess move in UCI notation.")
+print(response)
+```
+
+The default model is `gemma4:e2b` with temperature `0.2`. Model invocation
+failures raise `ModelInvocationError`; non-text responses raise
+`ModelResponseError`. Response parsing and move validation are handled by later
+application layers.
+
 ## Run tests
 
 ```bash
