@@ -27,6 +27,7 @@ from .provider import (
     OllamaConfig,
     OllamaProvider,
 )
+from .workflow import AIWorkflowResult, AIWorkflowState, MAX_ATTEMPTS, run_ai_turn
 
 __all__ = [
     "BoardState",
@@ -50,4 +51,8 @@ __all__ = [
     "ModelResponseError",
     "OllamaConfig",
     "OllamaProvider",
+    "AIWorkflowResult",
+    "AIWorkflowState",
+    "MAX_ATTEMPTS",
+    "run_ai_turn",
 ]

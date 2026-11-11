@@ -1,9 +1,8 @@
 # LLM Chess
 
-A Python chess application managed with `uv`. The CLI supports human-vs-human
-play, and the library exposes position observation and objective analysis for
-future agent integration. Ollama and AI play are not wired into the application
-yet.
+A Python chess application managed with `uv`. The CLI currently supports
+human-vs-human play. The library includes position analysis, an Ollama provider,
+and a one-turn AI workflow; AI play is not wired into the CLI yet.
 
 ## Requirements
 
@@ -53,9 +52,7 @@ chess-engine evaluation.
 
 ## Ollama provider
 
-The Ollama provider can generate raw text from a prompt; it is not yet connected
-to the game loop. Install and start [Ollama](https://ollama.com/), then download
-the default model:
+Install and start [Ollama](https://ollama.com/), then download the default model:
 
 ```bash
 ollama pull gemma4:e2b
@@ -73,8 +70,28 @@ print(response)
 
 The default model is `gemma4:e2b` with temperature `0.2`. Model invocation
 failures raise `ModelInvocationError`; non-text responses raise
-`ModelResponseError`. Response parsing and move validation are handled by later
-application layers.
+`ModelResponseError`.
+
+## AI-turn workflow
+
+The workflow can generate and apply a single AI move independently of the CLI:
+
+```python
+from llmchess import ChessGame, OllamaProvider, run_ai_turn
+
+game = ChessGame()
+result = run_ai_turn(game, OllamaProvider())
+if result.success:
+    print(f"AI played {result.move}")
+else:
+    print(f"AI turn failed: {result.error_message}")
+```
+
+The workflow provides the model with the observed position, complete legal
+moves, history, and objective analysis. It parses the required JSON response,
+validates every proposed UCI move, and allows at most three total attempts for
+malformed or illegal proposals. Provider failures are reported separately.
+Only a validated move is executed. Human-vs-AI CLI integration is a later step.
 
 ## Run tests
 
